@@ -54,7 +54,12 @@ void Cliente(int clienteSockfd)
         /*Escreve para o servidor*/
  
         write(clienteSockfd, buffer_para_servidor, sizeof (buffer_para_servidor));
- 
+        
+        bzero(buffer_para_servidor, sizeof(buffer_para_servidor)); 
+
+        read(clienteSockfd, buffer_para_servidor, sizeof(buffer_para_servidor)); 
+        printf("From Server : %s", buffer_para_servidor); 
+
       /*Mensagem para sair*/
     } while (strcmp(buffer_para_servidor, "sair") != 0);
     /**Encerra o descritor*/

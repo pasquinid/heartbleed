@@ -16,7 +16,9 @@ void* Servidor(void* arg)
     /*Cast do ponteiro*/
     int sockEntrada = *(int *) arg;
     /*Loop "infinito"*/
-    printf("Aguardando as mensagens... ");
+    int n;
+    
+    printf("Aguardando as mensagens.....\n");
     for (;;)
     {
         /*Le o que vem do cliente*/
@@ -24,7 +26,13 @@ void* Servidor(void* arg)
         if (strcmp(buffer_do_cliente, "sair") != 0)
         {
             /*Se buffer == sair cai fora*/
-            printf("%s\n",buffer_do_cliente);
+            printf("\n%s",buffer_do_cliente);
+            bzero(buffer_do_cliente, sizeof (buffer_do_cliente)); 
+            n = 0;
+            // copy server message in the buffer 
+			while ((buffer_do_cliente[n++] = getchar()) != '\n') 
+				; 
+            write(sockEntrada, buffer_do_cliente, sizeof(buffer_do_cliente)); 
         }
         else
              {
